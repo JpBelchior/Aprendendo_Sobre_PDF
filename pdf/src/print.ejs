@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relatório</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-purple-100 min-h-screen p-6">
+    <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      <h1 class="text-3xl font-bold text-center mb-6 text-purple-800">
+        Relatório de Passageiros
+      </h1>
+
+      <% var totalPassageiros = passengers.length; var voos = {}; for (var i =
+      0; i < passengers.length; i++) { var p = passengers[i]; if (!voos[p.voo])
+      voos[p.voo] = 0; voos[p.voo]++; } function totalMalas(malas) { if (!malas)
+      return 0; return malas.length; } function countFrageis(malas) { var count
+      = 0; if (!malas) return 0; for (var i = 0; i < malas.length; i++) { if
+      (malas[i].fragil) count++; } return count; } function pesoTotal(malas) {
+      var sum = 0; if (!malas) return 0; for (var i = 0; i < malas.length; i++)
+      { sum += Number(malas[i].peso) || 0; } return sum; } %>
+
+      <p class="text-lg font-semibold mb-4">
+        Total de passageiros: <%= totalPassageiros %>
+      </p>
+
+      <!-- Resumo por voo -->
+      <h2 class="text-xl font-semibold mb-2 text-purple-700">Resumo por voo</h2>
+      <table class="w-full table-auto border border-gray-300 mb-6">
+        <thead>
+          <tr class="bg-purple-200">
+            <th class="border px-4 py-2 text-left">Voo</th>
+            <th class="border px-4 py-2 text-left">
+              Quantidade de Passageiros
+            </th>
+            <th class="border px-4 py-2 text-left">Porcentagem</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (var voo in voos) { %>
+          <tr class="hover:bg-purple-50">
+            <td class="border px-4 py-2"><%= voo %></td>
+            <td class="border px-4 py-2"><%= voos[voo] %></td>
+            <td class="border px-4 py-2">
+              <%= ((voos[voo] / totalPassageiros) * 100).toFixed(2) %> %
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+      <!-- Detalhes dos passageiros -->
+      <h2 class="text-xl font-semibold mb-2 text-purple-700">
+        Detalhes dos passageiros
+      </h2>
+      <table class="w-full table-auto border border-gray-300">
+        <thead>
+          <tr class="bg-purple-200">
+            <th class="border px-4 py-2 text-left">Nome</th>
+            <th class="border px-4 py-2 text-left">Número</th>
+            <th class="border px-4 py-2 text-left">Voo</th>
+            <th class="border px-4 py-2 text-left">Malas</th>
+            <th class="border px-4 py-2 text-left">Frágeis</th>
+            <th class="border px-4 py-2 text-left">Peso Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (var j = 0; j < passengers.length; j++) { var p =
+          passengers[j]; %>
+          <tr class="hover:bg-purple-50">
+            <td class="border px-4 py-2"><%= p.nome %></td>
+            <td class="border px-4 py-2"><%= p.numero %></td>
+            <td class="border px-4 py-2"><%= p.voo %></td>
+            <td class="border px-4 py-2"><%= totalMalas(p.malas) %></td>
+            <td class="border px-4 py-2"><%= countFrageis(p.malas) %></td>
+            <td class="border px-4 py-2"><%= pesoTotal(p.malas) %> kg</td>
+          </tr>
+          <% } %>
+        </tbody>
+        <tfoot>
+          <tr class="bg-purple-200">
+            <td colspan="6" class="border px-4 py-2 text-left font-semibold">
+              <%= totalPassageiros %> passageiros
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </body>
+</html>
