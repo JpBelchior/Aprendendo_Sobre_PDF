@@ -1,0 +1,26 @@
+# Ignorar node_modules de frontend e backend
+frontend/node_modules/
+backend/node_modules/
+
+# Ignorar arquivos .env
+backend/.env
+frontend/.env
+.env
+
+# Ignorar logs comuns
+*.log
+
+# Ignorar pastas de build
+frontend/dist/
+backend/dist/
+
+# Ignorar cache de dependências
+**/package-lock.json
+**/yarn.lock
+
+# Ignorar arquivos temporários de sistema/editor
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
